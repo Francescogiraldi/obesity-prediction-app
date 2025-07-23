@@ -118,7 +118,8 @@ def main():
     # Chargement des ressources
     @st.cache_resource
     def load_resources():
-        model_path = "models/modele_lgbm.pkl"
+        # Chemin relatif au répertoire parent depuis src/
+        model_path = os.path.join(parent_dir, "models", "modele_lgbm.pkl")
         model = load_model(model_path)
         advice_engine = AdviceEngine()
         return model, advice_engine
@@ -262,7 +263,8 @@ def analysis_page(model):
     
     # Charger les données d'entraînement si disponibles
     try:
-        data = load_data("data/obesite_clean_fr.csv")
+        data_path = os.path.join(parent_dir, "data", "obesite_clean_fr.csv")
+        data = load_data(data_path)
         
         if not data.empty:
             st.markdown("### 📊 Statistiques du dataset")
